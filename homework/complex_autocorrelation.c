@@ -87,5 +87,5 @@ int main()
     
     printf("%d ", autocorr(h, m, x, n));
     
-    return 0;
+    return 0; 
 }
