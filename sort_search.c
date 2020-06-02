@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h> 
-#include <time.h>
+#include <stdlib.h>
 
 int* mergeSort(int n, int* arr){
     if(n==1) return arr;
@@ -36,46 +35,57 @@ int* mergeSort(int n, int* arr){
     return ans;
 }
 
-int binSearch(int n, int* arr, int x){
-    int i=0;
-    for(i=0;i<n;i++) printf("%d ", arr[i]); printf("\n");
-    
-    if(n<1){
-        if(arr[0]==x) return 0;
+int* gptr;
+int gn;
+int target;
+
+int binSearch_rec(int l, int r){
+    if(l==r){
+        if(gptr[l]==target) return l;
         else return -1;
     }
-    else{
-        int i=0;
-        if(x==arr[n/2]) return n/2;
-        else if(x<arr[n/2]){
-            int* new = malloc(n/2*sizeof(int));
-            for(i=0; i<n/2; i++) new[i]=arr[i];
-            return binSearch(n/2, new, x);
-        }
-        else{
-            int* new = malloc((n-n/2)*sizeof(int));
-            for(i=0; i<n-n/2; i++) new[i]=arr[n/2+i];
-            return n/2 + binSearch(n-n/2, new, x);
-        }
+    int m = (l+r)/2;
+    if(gptr[m]==target) return m;
+    else if(gptr[m]>target) return binSearch_rec(l,m-1);
+    else return binSearch_rec(m+1,r);
+}
+
+int binSearch_itr(int* arr, int n){
+    if(n==1){
+        if(arr[0]==target) return 0;
+        else return -1;
     }
+    int l=0, r=n-1;
+    while(l<=r){
+        int m = (l+r)/2;
+        if(arr[m]==target) return m;
+        else if(arr[m]>target) r=m-1;
+        else l=m+1;
+    }
+    return -1;
 }
 
 int main()
 {
-    
     int i=0, n=10;
     int* r = malloc(n*sizeof(int));
     srand(3);
     for(i=0; i<n; i++) r[i] = rand()%10;
-    for(i=0; i<n; i++) printf("%d ", r[i]);
+    printf("random arr: ");
+    for(i=0; i<n; i++) printf("%d ", r[i]); printf("\n");
 
-    printf("\n");
+    printf("merge arr: ");
     r = mergeSort(n, r);
-    for(i=0; i<n; i++) printf("%d ", r[i]);
+    for(i=0; i<n; i++) printf("%d ", r[i]); printf("\n");
 
-    printf("\n");
-    int ans = binSearch(n,r,5);
-    printf("%d", ans);
+    gptr = r;
+    gn = n;
+    target = 4;
+    int ans = binSearch_rec(0,gn-1);
+    printf("recusrion binsearch %d: %d\n", target, ans);
+    
+    int ans2 = binSearch_itr(r,n);
+    printf("iteration binsearch %d: %d\n", target, ans2);
     
     return 0;
 }
