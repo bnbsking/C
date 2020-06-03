@@ -5,13 +5,13 @@
 
 //a add 1 call by value
 int cbv_int(int x){         //int x = a, x為獨立一份
-    x = x+1;                //改x不影響a
-    return x;               //return改過的x(要用a去接)
+	x = x+1;                //改x不影響a
+	return x;               //return改過的x(要用a去接)
 }
 
 //a add 1 call by address
 void cba_int(int* ptr){     //int* ptr = &a, ptr為a之地址, *ptr即a
-    *ptr = *ptr + 1;        //改*ptr就是改a, 所以不須回傳
+	*ptr = *ptr + 1;        //改*ptr就是改a, 所以不須回傳
 }
 
 //arr add 1 call by address
@@ -35,11 +35,12 @@ void cbn_arr(){
 
 int main()
 {
-    int a=5;				//獨立於global a
-    a = cbv_int(a);
-    printf("%d \n", a);
-    cba_int(&a);
-    printf("%d \n", a);
+	int a=5;				//獨立於global a
+	a = cbv_int(a);
+	printf("%d \n", a);
+
+	cba_int(&a);
+	printf("%d \n", a);
     
 	int* arr = calloc(3, sizeof(int));	//arr是陣列第0個元素地址, *arr=arr[0]=陣列第0個元素
 	cba_arr(arr, 3);
