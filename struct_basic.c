@@ -16,9 +16,9 @@ int main()
     struct Car1 a;
     a.wheel = 4;
     a.color = "red";
-    printf("%d %s \n", a.wheel, a.color);
+    printf("%d %s \n", a.wheel, a.color); //printf("?", a); a is struct object cannot print
     
-    struct Car1* b = malloc(1*sizeof(struct Car1));
+    struct Car1* b = malloc(1*sizeof(struct Car1)); //b is pointer so b[0] is invalid so does *b
     b->wheel = 5;
     b->color = "blue";
     printf("%d %s \n", b->wheel, b->color);
