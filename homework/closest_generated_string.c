@@ -58,7 +58,7 @@ int** matrixMult(int** A, int** B, int m, int n, int p){
     int i,j,k;
     for(i=0; i<m; i++){
         for(j=0; j<p; j++){
-            for(k=0; k<n; k++) C[i][j] = C[i][j] + A[i][k]*B[k][j];
+            for(k=0; k<n; k++) C[i][j] = (C[i][j] + A[i][k]*B[k][j])%2;
         }
     }
     return C;
